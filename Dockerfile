@@ -30,6 +30,10 @@ RUN pip install --no-cache-dir --upgrade pip
 # Install pipenv
 RUN pip install pipenv
 
+# Expose the port the app runs on
+EXPOSE 8000
+
+# Set user
 USER $USERNAME
 
 # Run any command to initialize the container
