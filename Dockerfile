@@ -37,4 +37,4 @@ EXPOSE 8000
 USER $USERNAME
 
 # Run any command to initialize the container
-# CMD ["bash"]
+CMD ["bash"]
