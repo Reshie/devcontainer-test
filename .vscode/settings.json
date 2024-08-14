@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
-        "/home/vscode/.local/share/virtualenvs/"
-		]
+      "/home/vscode/.local/share/virtualenvs/",
+      "./app"
+    ]
 }
