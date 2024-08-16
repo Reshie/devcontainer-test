@@ -1,9 +1,11 @@
+from typing import List
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, engine
 from app import models, crud
+from app.schemas import Task, TaskCreate
 
 router = APIRouter()
 
@@ -21,22 +23,22 @@ async def root(request: Request):
     templates = Jinja2Templates(directory="./app/templates")
     return templates.TemplateResponse("index.html", {"request": request})
 
-@router.get("/task")
-async def get_tasks(db: Session = Depends(get_db)):
-	tasks = await crud.get_all_tasks(db=db)
+@router.get("/task", response_model=List[Task])
+def get_tasks(db: Session = Depends(get_db)):
+	tasks = crud.get_all_tasks(db=db)
 	return tasks
 
-@router.post("/task")
-async def create_task(title: str, db: Session = Depends(get_db)):
-	task = await crud.create_task(db=db, title=title)
+@router.post("/task", response_model=Task)
+def create_task(data: TaskCreate, db: Session = Depends(get_db)):
+	task = crud.create_task(db=db, title=data.title)
 	return task
 
-@router.put("/task/{task_id}")
-async def toggle_task(task_id: int, db: Session = Depends(get_db)):
-	task = await crud.toggle_task(db=db, task_id=task_id)
+@router.put("/task/{task_id}", response_model=Task)
+def toggle_task(task_id: int, db: Session = Depends(get_db)):
+	task = crud.toggle_task(db=db, task_id=task_id)
 	return task
 
-@router.delete("/task/{task_id}")
-async def delete_task(task_id: int, db: Session = Depends(get_db)):
-	task = await crud.delete_task(db=db, task_id=task_id)
+@router.delete("/task/{task_id}", response_model=Task)
+def delete_task(task_id: int, db: Session = Depends(get_db)):
+	task = crud.delete_task(db=db, task_id=task_id)
 	return task

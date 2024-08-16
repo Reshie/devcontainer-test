@@ -8,4 +8,4 @@ class Task(Base):
 		
 	id = Column(Integer, primary_key=True, autoincrement= True)
 	title = Column(String)
-	is_done = Column(Boolean(False))
+	is_done = Column(Boolean, default=False)
