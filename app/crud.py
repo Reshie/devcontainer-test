@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app import models
 
 def get_all_tasks(db: Session):
-    return db.query(models.Task).all()
+    return db.query(models.Task).order_by(models.Task.id).all()
 
 def get_task(db: Session, task_id: int):
 	db_task = db.query(models.Task).filter(models.Task.id == task_id).first()
