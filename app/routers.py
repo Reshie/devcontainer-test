@@ -1,4 +1,5 @@
 from typing import List
+from elasticsearch import Elasticsearch
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -42,3 +43,25 @@ def toggle_task(task_id: int, db: Session = Depends(get_db)):
 def delete_task(task_id: int, db: Session = Depends(get_db)):
 	task = crud.delete_task(db=db, task_id=task_id)
 	return task
+
+@router.get("/search", response_class=HTMLResponse)
+async def root(request: Request):
+    templates = Jinja2Templates(directory="./app/templates")
+    return templates.TemplateResponse("search.html", {"request": request})
+
+@router.post("/search")
+def search_es(q: str):
+	query = {
+		"query": {
+			"bool": {
+				"should": [
+					{"match": {"title": q}},
+					{"match": {"author": q}}
+				]
+			}
+		}
+	}
+	es = Elasticsearch("http://elasticsearch:9200")
+	res = es.search(index="literature", body=query)
+	es.close()
+	return res['hits']['hits']
