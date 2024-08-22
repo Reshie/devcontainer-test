@@ -69,6 +69,11 @@ li {
   align-items: center;
 }
 
+li p {
+  line-height: 0;
+  font-size: 0.9em;
+}
+
 li.completed span {
   text-decoration: line-through;
   color: #aaa;
