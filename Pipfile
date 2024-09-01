@@ -10,6 +10,9 @@ jinja2 = "==3.1.4"
 sqlalchemy = "==2.0.32"
 sqlalchemy-utils = "==0.41.2"
 elasticsearch = "*"
+cloud-sql-python-connector = {extras = ["pg8000"], version = "*"}
+pg8000 = "*"
+python-dotenv = "*"
 
 [dev-packages]
 psycopg2 = "==2.9.9"
