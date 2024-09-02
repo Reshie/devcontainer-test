@@ -25,7 +25,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
 WORKDIR /workspace
 
 # Copy requirements file
-COPY requirements.txt requirements.txt
+COPY Pipfile Pipfile.lock /workspace/
 
 # Install pip
 RUN pip install --no-cache-dir --upgrade pip
@@ -39,5 +39,11 @@ EXPOSE 8000
 # Set user
 USER $USERNAME
 
-# Run any command to initialize the container
-CMD ["bash"]
+# Install packages
+RUN pipenv sync
+
+# Copy app folder
+COPY /app /workspace/app
+
+# Run server
+ENTRYPOINT ["pipenv", "run", "uvicorn", "app.main:app", "--port", "8080"]

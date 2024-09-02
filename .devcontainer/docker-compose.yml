@@ -4,7 +4,7 @@ services:
     workspace:
         build:
             context: ..
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.dev
         environment:
             PYTHONPATH: /workspace
         ports:

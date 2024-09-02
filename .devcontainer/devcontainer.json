@@ -17,7 +17,7 @@
           }
       }
   },
-  "forwardPorts": [8000],
-  "postCreateCommand": "pipenv sync --dev"
+  "forwardPorts": [8000]
+  // "postCreateCommand": "pipenv sync --dev"
   // "postStartCommand": "pipenv shell" 
 }
