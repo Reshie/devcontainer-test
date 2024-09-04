@@ -34,7 +34,7 @@ RUN pip install --no-cache-dir --upgrade pip
 RUN pip install pipenv
 
 # Expose the port the app runs on
-EXPOSE 8000
+EXPOSE 8080
 
 # Set user
 USER $USERNAME
@@ -46,4 +46,4 @@ RUN pipenv sync
 COPY /app /workspace/app
 
 # Run server
-ENTRYPOINT ["pipenv", "run", "uvicorn", "app.main:app", "--port", "8080"]
+ENTRYPOINT ["pipenv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
