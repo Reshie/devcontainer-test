@@ -1,6 +1,7 @@
 'use strict';
 
-const FASTAPI_URL = 'http://127.0.0.1:8080';
+// const FASTAPI_URL = 'http://127.0.0.1:8080';
+const FASTAPI_URL = 'https://myapp-642808392706.asia-northeast1.run.app';
 
 document.addEventListener('DOMContentLoaded', () => {
   const todoForm = document.getElementById('todo-form');
